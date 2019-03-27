@@ -69,11 +69,14 @@ endif()
 
 # ---[ OpenCV
 if(USE_OPENCV)
-  find_package(OpenCV QUIET COMPONENTS core highgui imgproc imgcodecs)
+  set(OpenCV_DIR "/disk/zhaojingjing/zhaojingjing/opencv2413/share/OpenCV")   
+  message(${CMAKE_MODULE_PATH})
+  find_package(OpenCV 2.4.13 COMPONENTS core highgui imgproc imgcodecs)
   if(NOT OpenCV_FOUND) # if not OpenCV 3.x, then imgcodecs are not found
     find_package(OpenCV REQUIRED COMPONENTS core highgui imgproc)
   endif()
   include_directories(SYSTEM ${OpenCV_INCLUDE_DIRS})
+  message(${OpenCV_INCLUDE_DIRS})
   list(APPEND Caffe_LINKER_LIBS ${OpenCV_LIBS})
   message(STATUS "OpenCV found (${OpenCV_CONFIG_PATH})")
   add_definitions(-DUSE_OPENCV)
