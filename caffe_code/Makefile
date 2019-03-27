@@ -178,7 +178,7 @@ ifneq ($(CPU_ONLY), 1)
 	LIBRARIES := cudart cublas curand
 endif
 
-LIBRARIES += glog gflags protobuf boost_system boost_filesystem m hdf5_hl hdf5
+LIBRARIES += glog gflags protobuf boost_system boost_filesystem m hdf5_serial_hl hdf5_serial
 
 # handle IO dependencies
 USE_LEVELDB ?= 1
@@ -412,7 +412,7 @@ USE_PKG_CONFIG ?= 0
 ifeq ($(USE_PKG_CONFIG), 1)
 	PKG_CONFIG := $(shell pkg-config opencv --libs)
 else
-	PKG_CONFIG :=
+	PKG_CONFIG := 
 endif
 LDFLAGS += $(foreach librarydir,$(LIBRARY_DIRS),-L$(librarydir)) $(PKG_CONFIG) \
 		$(foreach library,$(LIBRARIES),-l$(library))
